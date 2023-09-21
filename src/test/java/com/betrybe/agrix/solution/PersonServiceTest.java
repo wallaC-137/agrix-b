@@ -12,14 +12,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+/**
+ * The type Person service test.
+ */
 @SpringBootTest
 public class PersonServiceTest {
+
+  /**
+   * The Person service.
+   */
   @Autowired
   PersonService personService;
 
+  /**
+   * The Person repository.
+   */
   @MockBean
   PersonRepository personRepository;
 
+  /**
+   * Test create.
+   */
   @Test
   public void testCreate() {
     Person person = new Person();
@@ -46,6 +59,9 @@ public class PersonServiceTest {
     assertEquals(person.getRole(), createdPerson.getRole());
   }
 
+  /**
+   * Gets person by username.
+   */
   @Test
   public void getPersonByUsername() {
     Person person = new Person();
@@ -72,6 +88,9 @@ public class PersonServiceTest {
     assertEquals(person.getRole(), createdPerson.getRole());
   }
 
+  /**
+   * Gets person by id.
+   */
   @Test
   public void getPersonById() {
     Person person = new Person();
