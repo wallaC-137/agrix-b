@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -24,6 +25,13 @@ public class Crop {
   private String name;
   @Column(name = "planted_area")
   private Double plantedArea;
+
+  @Column(name = "planted_date")
+  private LocalDate plantedDate;
+
+  @Column(name = "harvest_date")
+  private LocalDate harvestDate;
+
 
   @ManyToOne
   @JoinColumn(name = "farm_id")
@@ -42,14 +50,20 @@ public class Crop {
    * @param name        the name
    * @param plantedArea the planted area
    * @param farmId      the farm id
+   * @param plantedDate the planted date
+   * @param harvestDate the harvest date
    */
   @Autowired
-  public Crop(Long id, String name, Double plantedArea, Farm farmId) {
+  public Crop(Long id, String name, Double plantedArea, Farm farmId, LocalDate plantedDate,
+      LocalDate harvestDate) {
     this.id = id;
     this.name = name;
     this.plantedArea = plantedArea;
     this.farmId = farmId;
+    this.plantedDate = plantedDate;
+    this.harvestDate = harvestDate;
   }
+
 
   /**
    * Gets id.
@@ -121,5 +135,41 @@ public class Crop {
    */
   public void setFarmId(Farm farm) {
     this.farmId = farm;
+  }
+
+  /**
+   * Gets planted date.
+   *
+   * @return the planted date
+   */
+  public LocalDate getPlantedDate() {
+    return plantedDate;
+  }
+
+  /**
+   * Sets planted date.
+   *
+   * @param plantedDate the planted date
+   */
+  public void setPlantedDate(LocalDate plantedDate) {
+    this.plantedDate = plantedDate;
+  }
+
+  /**
+   * Gets harvest date.
+   *
+   * @return the harvest date
+   */
+  public LocalDate getHarvestDate() {
+    return harvestDate;
+  }
+
+  /**
+   * Sets harvest date.
+   *
+   * @param harvestDate the harvest date
+   */
+  public void setHarvestDate(LocalDate harvestDate) {
+    this.harvestDate = harvestDate;
   }
 }
