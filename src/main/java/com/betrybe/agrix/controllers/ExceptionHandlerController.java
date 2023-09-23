@@ -2,6 +2,7 @@ package com.betrybe.agrix.controllers;
 
 import com.betrybe.agrix.exception.CropNotFoundException;
 import com.betrybe.agrix.exception.FarmNotFoundException;
+import com.betrybe.agrix.exception.FertilizerNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -31,5 +32,15 @@ public class ExceptionHandlerController {
   @ExceptionHandler(CropNotFoundException.class)
   public ResponseEntity<String> handlerCropNotFound() {
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Plantação não encontrada!");
+  }
+
+  /**
+   * Handler fertilizer not found response entity.
+   *
+   * @return the response entity
+   */
+  @ExceptionHandler(FertilizerNotFoundException.class)
+  public ResponseEntity<String> handlerFertilizerNotFound() {
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Fertilizante não encontrado!");
   }
 }
