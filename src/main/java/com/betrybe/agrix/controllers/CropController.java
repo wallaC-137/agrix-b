@@ -1,16 +1,21 @@
 package com.betrybe.agrix.controllers;
 
 import com.betrybe.agrix.controllers.dto.CropDto;
+import com.betrybe.agrix.controllers.dto.CropFertilizerDto;
 import com.betrybe.agrix.models.entities.Crop;
+import com.betrybe.agrix.models.entities.CropFertilizer;
 import com.betrybe.agrix.services.CropService;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -92,4 +97,38 @@ public class CropController {
     return ResponseEntity.ok(cropDtos);
   }
 
+  /**
+   * Add fertilizer to crop response entity.
+   *
+   * @param cropId       the crop id
+   * @param fertilizerId the fertilizer id
+   * @return the response entity
+   */
+  @PostMapping("/{cropId}/fertilizers/{fertilizerId}")
+  public ResponseEntity<String> addFertilizerToCrop(@PathVariable Long cropId,
+      @PathVariable Long fertilizerId) {
+    cropService.addFertilizerToCrop(cropId, fertilizerId);
+
+    return ResponseEntity.status(HttpStatus.CREATED)
+        .body("Fertilizante e plantação associados com sucesso!");
+  }
+
+  /**
+   * Gets fertilizers by crop id.
+   *
+   * @param cropId the crop id
+   * @return the fertilizers by crop id
+   */
+  @GetMapping("/{cropId}/fertilizers")
+  public ResponseEntity<List<CropFertilizerDto>> getFertilizersByCropId(@PathVariable Long cropId) {
+    Set<CropFertilizer> fertilizers = cropService.getFertilizersByCropId(cropId);
+
+    List<CropFertilizerDto> cropFertilizerDto = fertilizers.stream()
+        .map(fertilizer -> new CropFertilizerDto(fertilizer.getFertilizerId().getId(),
+            fertilizer.getFertilizerId().getName(), fertilizer.getFertilizerId().getBrand(),
+            fertilizer.getFertilizerId().getComposition())).toList();
+
+    return ResponseEntity.ok(cropFertilizerDto);
+  }
+  
 }

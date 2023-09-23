@@ -1,10 +1,13 @@
 package com.betrybe.agrix.models.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.Set;
 
 /**
  * The type Fertilizer.
@@ -20,6 +23,9 @@ public class Fertilizer {
   private String brand;
   private String composition;
 
+  @OneToMany(mappedBy = "fertilizerId", orphanRemoval = true, cascade = CascadeType.ALL)
+  private Set<CropFertilizer> cropFertilizers;
+
   /**
    * Instantiates a new Fertilizer.
    */
@@ -29,16 +35,19 @@ public class Fertilizer {
   /**
    * Instantiates a new Fertilizer.
    *
-   * @param id          the id
-   * @param name        the name
-   * @param brand       the brand
-   * @param composition the composition
+   * @param id              the id
+   * @param name            the name
+   * @param brand           the brand
+   * @param composition     the composition
+   * @param cropFertilizers the crop fertilizers
    */
-  public Fertilizer(Long id, String name, String brand, String composition) {
+  public Fertilizer(Long id, String name, String brand, String composition,
+      Set<CropFertilizer> cropFertilizers) {
     this.id = id;
     this.name = name;
     this.brand = brand;
     this.composition = composition;
+    this.cropFertilizers = cropFertilizers;
   }
 
   /**
@@ -111,5 +120,24 @@ public class Fertilizer {
    */
   public void setComposition(String composition) {
     this.composition = composition;
+  }
+
+  /**
+   * Gets crop fertilizers.
+   *
+   * @return the crop fertilizers
+   */
+  public Set<CropFertilizer> getCropFertilizers() {
+    return cropFertilizers;
+  }
+
+  /**
+   * Sets crop fertilizers.
+   *
+   * @param cropFertilizers the crop fertilizers
+   */
+  public void setCropFertilizers(
+      Set<CropFertilizer> cropFertilizers) {
+    this.cropFertilizers = cropFertilizers;
   }
 }

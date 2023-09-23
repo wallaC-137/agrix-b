@@ -1,5 +1,8 @@
 package com.betrybe.agrix.controllers.dto;
 
+import com.betrybe.agrix.models.entities.CropFertilizer;
+import java.util.Set;
+
 /**
  * The type Fertilizer dto.
  */

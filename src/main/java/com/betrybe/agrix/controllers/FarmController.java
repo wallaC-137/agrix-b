@@ -89,6 +89,7 @@ public class FarmController {
 
     CropDto cropDto2 = new CropDto(newFarm.getId(), newFarm.getName(), newFarm.getPlantedArea(),
         newFarm.getFarmId().getId(), newFarm.getPlantedDate(), newFarm.getHarvestDate());
+
     return ResponseEntity.status(HttpStatus.CREATED).body(cropDto2);
   }
 
